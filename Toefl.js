@@ -1,8 +1,8 @@
 //在这里加入你需要选择的城市。
-var city_choose = ["武汉","长沙","郑州"]
+var city_choose = ["北京"]
 
 //在这里加入你需要选择的时间[start_time,end_time]。
-var time_start_end = ["2021-4-2","2021-10-1"]
+var time_start_end = ["2021-10-16","2021-10-24"]
 
 //搜索全部时间
 //var time_start_end = ["2000-4-10","2099-10-30"]
@@ -51,8 +51,4 @@ function compare(date){
 }
 
 //搜索指定城市
-//Scanner(city_choose, false)
-
-//搜索全部城市
-Scanner(city_choose, true)
-
+Scanner(city_choose, false)
