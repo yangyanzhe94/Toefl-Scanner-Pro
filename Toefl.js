@@ -28,7 +28,6 @@ async function Scanner(city_choose, all) {
                     if(compare(day.options[j].text)){ //如果找到了指定范围内的时间
                         day.options[j].selected = true
                         btn_query.click()
-                        await sleep(generateRadomGap())
                         tables = document.getElementsByClassName("table table-bordered table-striped")
                         if (tables.length == 1) {
                             tb = tables[0]
@@ -41,12 +40,15 @@ async function Scanner(city_choose, all) {
                                     }
                             }
                         }
+                        await sleep(generateRadomGap())
                     }
                 }
             }
         }
-    }   
+    }
 }
+
+
 
 // 日期时间比对函数
 function compare(date){
@@ -69,23 +71,19 @@ function checkIsOutData(startData, allTime){
 
 //生成随机间隔
 function generateRadomGap(){
-    var min = 1000,
-    max = 2000;
+    var min = 10000,
+    max = 20000;
+    var gap = Math.floor(Math.random() * (max - min + 1) + min)
+    console.log("间隔"+gap)
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 //设定执行多少次
 async function timesScanner(city_choose, all,times){
 
-    var i = 1
-    var timer = setInterval(function f(){
-        //搜索指定城市
-        Scanner(city_choose, false)
-        i++
-        if(i == times){
-            clearInterval(timer)
-        }
-    }, generateRadomGap())
+    for(i = 0; i < times; ++i){
+        Scanner(city_choose, all)
+    }
 }
 
 //设定执行多久 单位为分钟
@@ -93,21 +91,19 @@ async function timeScanner(city_choose, all,time){
 
     var startDate = new Date();
 
-    var i = 1
-    var timer = setInterval(function f(){
-        //搜索指定城市
-        Scanner(city_choose, false)
-       
+    while(true){
+        Scanner(city_choose, all)
         if(!checkIsOutData(startData,time)){
-            clearInterval(timer)
+            break
         }
-    }, generateRadomGap())
+    }
 }
+
 //只扫描一轮
-//Scanner(city_choose, true)
+//Scanner(city_choose, false)
 
 //次数
-timesScanner(city_choose, true,10)
+timesScanner(city_choose, false,2)
 
 //时间
-//timesScanner(city_choose, true,10)
+//timeScanner(city_choose, false,10)
